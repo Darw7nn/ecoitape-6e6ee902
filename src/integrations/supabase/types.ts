@@ -14,16 +14,244 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      materials: {
+        Row: {
+          group_name: string
+          id: string
+          name: string
+          sort_order: number
+        }
+        Insert: {
+          group_name: string
+          id: string
+          name: string
+          sort_order?: number
+        }
+        Update: {
+          group_name?: string
+          id?: string
+          name?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      point_materials: {
+        Row: {
+          accepted: boolean
+          material_id: string
+          point_id: string
+        }
+        Insert: {
+          accepted?: boolean
+          material_id: string
+          point_id: string
+        }
+        Update: {
+          accepted?: boolean
+          material_id?: string
+          point_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "point_materials_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "point_materials_point_id_fkey"
+            columns: ["point_id"]
+            isOneToOne: false
+            referencedRelation: "points"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      points: {
+        Row: {
+          accepts_dropoff: boolean
+          cep: string | null
+          city: string
+          cond_cleaning: string | null
+          cond_costs: string | null
+          cond_min_quantity: string | null
+          cond_packaging: string | null
+          cond_scheduling: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          hours: string | null
+          id: string
+          image_url: string | null
+          is_demo: boolean
+          lat: number | null
+          lng: number | null
+          name: string
+          neighborhood: string | null
+          number: string | null
+          offers_pickup: boolean
+          phone: string | null
+          pricing: Database["public"]["Enums"]["point_pricing"]
+          pricing_notes: string | null
+          slug: string
+          state: string
+          status: Database["public"]["Enums"]["point_status"]
+          street: string | null
+          submitter_contact: string | null
+          submitter_name: string | null
+          type: Database["public"]["Enums"]["point_type"]
+          updated_at: string
+          website: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          accepts_dropoff?: boolean
+          cep?: string | null
+          city?: string
+          cond_cleaning?: string | null
+          cond_costs?: string | null
+          cond_min_quantity?: string | null
+          cond_packaging?: string | null
+          cond_scheduling?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          hours?: string | null
+          id?: string
+          image_url?: string | null
+          is_demo?: boolean
+          lat?: number | null
+          lng?: number | null
+          name: string
+          neighborhood?: string | null
+          number?: string | null
+          offers_pickup?: boolean
+          phone?: string | null
+          pricing?: Database["public"]["Enums"]["point_pricing"]
+          pricing_notes?: string | null
+          slug: string
+          state?: string
+          status?: Database["public"]["Enums"]["point_status"]
+          street?: string | null
+          submitter_contact?: string | null
+          submitter_name?: string | null
+          type: Database["public"]["Enums"]["point_type"]
+          updated_at?: string
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          accepts_dropoff?: boolean
+          cep?: string | null
+          city?: string
+          cond_cleaning?: string | null
+          cond_costs?: string | null
+          cond_min_quantity?: string | null
+          cond_packaging?: string | null
+          cond_scheduling?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          hours?: string | null
+          id?: string
+          image_url?: string | null
+          is_demo?: boolean
+          lat?: number | null
+          lng?: number | null
+          name?: string
+          neighborhood?: string | null
+          number?: string | null
+          offers_pickup?: boolean
+          phone?: string | null
+          pricing?: Database["public"]["Enums"]["point_pricing"]
+          pricing_notes?: string | null
+          slug?: string
+          state?: string
+          status?: Database["public"]["Enums"]["point_status"]
+          street?: string | null
+          submitter_contact?: string | null
+          submitter_name?: string | null
+          type?: Database["public"]["Enums"]["point_type"]
+          updated_at?: string
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          contact: string | null
+          created_at: string
+          id: string
+          message: string
+          point_id: string
+          resolved: boolean
+        }
+        Insert: {
+          contact?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          point_id: string
+          resolved?: boolean
+        }
+        Update: {
+          contact?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          point_id?: string
+          resolved?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_point_id_fkey"
+            columns: ["point_id"]
+            isOneToOne: false
+            referencedRelation: "points"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_first_admin: { Args: never; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      submit_point: { Args: { mats: string[]; p: Json }; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      point_pricing: "gratuito" | "compra" | "cobra" | "nao_informado"
+      point_status: "pendente" | "aprovado" | "inativo"
+      point_type: "empresa" | "cooperativa" | "ecoponto" | "ponto_coleta"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +378,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      point_pricing: ["gratuito", "compra", "cobra", "nao_informado"],
+      point_status: ["pendente", "aprovado", "inativo"],
+      point_type: ["empresa", "cooperativa", "ecoponto", "ponto_coleta"],
+    },
   },
 } as const
