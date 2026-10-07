@@ -10,11 +10,37 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CadastrarRouteImport } from './routes/cadastrar'
+import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
 import { Route as EncontrarRouteImport } from './routes/encontrar'
+import { Route as MateriaisRouteImport } from './routes/materiais'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as PontosSlugRouteImport } from './routes/pontos.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastrarRoute = CadastrarRouteImport.update({
+  id: '/cadastrar',
+  path: '/cadastrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComoFuncionaRoute = ComoFuncionaRouteImport.update({
+  id: '/como-funciona',
+  path: '/como-funciona',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EncontrarRoute = EncontrarRouteImport.update({
@@ -22,31 +48,97 @@ const EncontrarRoute = EncontrarRouteImport.update({
   path: '/encontrar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MateriaisRoute = MateriaisRouteImport.update({
+  id: '/materiais',
+  path: '/materiais',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const PontosSlugRoute = PontosSlugRouteImport.update({
+  id: '/pontos/$slug',
+  path: '/pontos/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/cadastrar': typeof CadastrarRoute
+  '/como-funciona': typeof ComoFuncionaRoute
   '/encontrar': typeof EncontrarRoute
+  '/materiais': typeof MateriaisRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/cadastrar': typeof CadastrarRoute
+  '/como-funciona': typeof ComoFuncionaRoute
   '/encontrar': typeof EncontrarRoute
+  '/materiais': typeof MateriaisRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/cadastrar': typeof CadastrarRoute
+  '/como-funciona': typeof ComoFuncionaRoute
   '/encontrar': typeof EncontrarRoute
+  '/materiais': typeof MateriaisRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/encontrar'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/cadastrar'
+    | '/como-funciona'
+    | '/encontrar'
+    | '/materiais'
+    | '/admin'
+    | '/pontos/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/encontrar'
-  id: '__root__' | '/' | '/encontrar'
+  to:
+    | '/'
+    | '/auth'
+    | '/cadastrar'
+    | '/como-funciona'
+    | '/encontrar'
+    | '/materiais'
+    | '/admin'
+    | '/pontos/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/cadastrar'
+    | '/como-funciona'
+    | '/encontrar'
+    | '/materiais'
+    | '/_authenticated/admin'
+    | '/pontos/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  CadastrarRoute: typeof CadastrarRoute
+  ComoFuncionaRoute: typeof ComoFuncionaRoute
   EncontrarRoute: typeof EncontrarRoute
+  MateriaisRoute: typeof MateriaisRoute
+  PontosSlugRoute: typeof PontosSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +150,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastrar': {
+      id: '/cadastrar'
+      path: '/cadastrar'
+      fullPath: '/cadastrar'
+      preLoaderRoute: typeof CadastrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-funciona': {
+      id: '/como-funciona'
+      path: '/como-funciona'
+      fullPath: '/como-funciona'
+      preLoaderRoute: typeof ComoFuncionaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/encontrar': {
       id: '/encontrar'
       path: '/encontrar'
@@ -65,12 +185,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EncontrarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/materiais': {
+      id: '/materiais'
+      path: '/materiais'
+      fullPath: '/materiais'
+      preLoaderRoute: typeof MateriaisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/pontos/$slug': {
+      id: '/pontos/$slug'
+      path: '/pontos/$slug'
+      fullPath: '/pontos/$slug'
+      preLoaderRoute: typeof PontosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  CadastrarRoute: CadastrarRoute,
+  ComoFuncionaRoute: ComoFuncionaRoute,
   EncontrarRoute: EncontrarRoute,
+  MateriaisRoute: MateriaisRoute,
+  PontosSlugRoute: PontosSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
