@@ -79,7 +79,7 @@ export default function PointMap({
       bounds.push(userPos);
     }
     if (bounds.length > 1) m.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
-    else if (bounds.length === 1) m.setView(bounds[0], 15);
+    else if (bounds[0]) m.setView(bounds[0], 15);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [points, materials, userPos]);
 

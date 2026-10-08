@@ -65,10 +65,6 @@ function Register() {
       </PageShell>
     );
 
-  const F = ({ name, label, ...rest }: { name: string; label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
-    <label className="block text-sm font-medium">{label}<input name={name} className={input} {...rest} /></label>
-  );
-
   return (
     <PageShell>
       <div className="mx-auto max-w-3xl px-4 py-12">
@@ -80,15 +76,15 @@ function Register() {
             e.preventDefault();
             const raw = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
             const r = schema.safeParse(raw);
-            if (!r.success) return toast.error(r.error.issues[0].message);
-            if (!mats.length) return toast.error("Selecione ao menos um material aceito");
+            if (!r.success) { toast.error(r.error.issues[0]?.message ?? "Dados inválidos"); return; }
+            if (!mats.length) { toast.error("Selecione ao menos um material aceito"); return; }
             setBusy(true);
             const { error } = await supabase.rpc("submit_point", {
               p: { ...r.data, accepts_dropoff: dropoff, offers_pickup: pickup },
               mats,
             });
             setBusy(false);
-            if (error) return toast.error("Não foi possível enviar: " + error.message);
+            if (error) { toast.error("Não foi possível enviar: " + error.message); return; }
             setDone(true);
           }}
         >
@@ -169,5 +165,11 @@ function Register() {
         </form>
       </div>
     </PageShell>
+  );
+}
+
+function F({ name, label, ...rest }: { name: string; label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <label className="block text-sm font-medium">{label}<input name={name} className="mt-1 h-11 w-full rounded-lg border border-input bg-background px-3" {...rest} /></label>
   );
 }

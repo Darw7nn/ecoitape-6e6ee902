@@ -102,6 +102,7 @@ export async function geocode(query: string): Promise<[number, number] | null> {
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error("Serviço de endereços indisponível");
   const data = (await res.json()) as { lat: string; lon: string }[];
-  if (!data.length) return null;
-  return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+  const first = data[0];
+  if (!first) return null;
+  return [parseFloat(first.lat), parseFloat(first.lon)];
 }
