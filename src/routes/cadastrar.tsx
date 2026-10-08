@@ -76,15 +76,15 @@ function Register() {
             e.preventDefault();
             const raw = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
             const r = schema.safeParse(raw);
-            if (!r.success) return toast.error(r.error.issues[0].message);
-            if (!mats.length) return toast.error("Selecione ao menos um material aceito");
+            if (!r.success) { toast.error(r.error.issues[0]?.message ?? "Dados inválidos"); return; }
+            if (!mats.length) { toast.error("Selecione ao menos um material aceito"); return; }
             setBusy(true);
             const { error } = await supabase.rpc("submit_point", {
               p: { ...r.data, accepts_dropoff: dropoff, offers_pickup: pickup },
               mats,
             });
             setBusy(false);
-            if (error) return toast.error("Não foi possível enviar: " + error.message);
+            if (error) { toast.error("Não foi possível enviar: " + error.message); return; }
             setDone(true);
           }}
         >

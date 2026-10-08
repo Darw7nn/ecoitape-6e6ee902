@@ -41,7 +41,7 @@ function Admin() {
             className="mt-5 rounded-full bg-primary px-5 py-2.5 font-semibold text-primary-foreground"
             onClick={async () => {
               const { data, error } = await supabase.rpc("claim_first_admin");
-              if (error || !data) return toast.error("Já existe um administrador. Peça acesso a ele.");
+              if (error || !data) { toast.error("Já existe um administrador. Peça acesso a ele."); return; }
               toast.success("Agora você é administrador.");
               qc.invalidateQueries({ queryKey: ["is-admin"] });
             }}
@@ -73,7 +73,7 @@ function AdminPanel() {
 
   const setStatus = async (id: string, status: Point["status"]) => {
     const { error } = await supabase.from("points").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Status atualizado");
     qc.invalidateQueries();
   };
@@ -143,7 +143,7 @@ const FIELDS: [keyof Point, string][] = [
 ];
 
 function EditDialog({ point, materials, onClose }: { point: Point; materials: Material[]; onClose: () => void }) {
-  const [f, setF] = useState<Record<string, any>>({ ...point });
+  const [f, setF] = useState<any>({ ...point });
   const [acc, setAcc] = useState<Record<string, boolean | undefined>>(Object.fromEntries(point.point_materials.map((m) => [m.material_id, m.accepted])));
   const [busy, setBusy] = useState(false);
 
@@ -152,7 +152,7 @@ function EditDialog({ point, materials, onClose }: { point: Point; materials: Ma
     const { point_materials: _pm, id, created_at: _c, updated_at: _u, ...rest } = f;
     const payload = { ...rest, lat: f.lat === "" || f.lat == null ? null : Number(f.lat), lng: f.lng === "" || f.lng == null ? null : Number(f.lng) };
     const { error } = await supabase.from("points").update(payload).eq("id", id);
-    if (error) { setBusy(false); return toast.error(error.message); }
+    if (error) { setBusy(false); { toast.error(error.message); return; } }
     await supabase.from("point_materials").delete().eq("point_id", id);
     const rows = Object.entries(acc).filter(([, v]) => v !== undefined).map(([material_id, accepted]) => ({ point_id: id, material_id, accepted: !!accepted }));
     if (rows.length) await supabase.from("point_materials").insert(rows);
@@ -164,7 +164,7 @@ function EditDialog({ point, materials, onClose }: { point: Point; materials: Ma
   const locate = async () => {
     try {
       const r = await geocode([f.street, f.number, f.neighborhood, f.city, "SP", f.cep].filter(Boolean).join(", "));
-      if (!r) return toast.error("Endereço não encontrado. Informe as coordenadas manualmente.");
+      if (!r) { toast.error("Endereço não encontrado. Informe as coordenadas manualmente."); return; }
       setF({ ...f, lat: r[0], lng: r[1] });
       toast.success("Coordenadas preenchidas — confira no mapa após salvar.");
     } catch { toast.error("Serviço de endereços indisponível."); }

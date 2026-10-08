@@ -42,7 +42,7 @@ export const Route = createFileRoute("/pontos/$slug")({
     </PageShell>
   ),
   errorComponent: ({ error }) => (
-    <PageShell><div className="mx-auto max-w-xl px-4 py-24 text-center"><h1 className="text-2xl font-bold">Erro ao carregar</h1><p className="mt-2 text-muted-foreground">{error.message}</p></div></PageShell>
+    <PageShell><div className="mx-auto max-w-xl px-4 py-24 text-center"><h1 className="text-2xl font-bold">Erro ao carregar</h1><p className="mt-2 text-muted-foreground">{(error as Error).message}</p></div></PageShell>
   ),
   component: PointPage,
 });
@@ -154,11 +154,11 @@ function ReportForm({ pointId, onDone }: { pointId: string; onDone: () => void }
       onSubmit={async (e) => {
         e.preventDefault();
         const r = reportSchema.safeParse({ message, contact: contact || undefined });
-        if (!r.success) return toast.error(r.error.issues[0].message);
+        if (!r.success) { toast.error(r.error.issues[0]?.message ?? "Dados inválidos"); return; }
         setBusy(true);
         const { error } = await supabase.from("reports").insert({ point_id: pointId, message: r.data.message, contact: r.data.contact ?? null });
         setBusy(false);
-        if (error) return toast.error("Não foi possível enviar. Tente novamente.");
+        if (error) { toast.error("Não foi possível enviar. Tente novamente."); return; }
         toast.success("Valeu! Vamos conferir as informações.");
         onDone();
       }}

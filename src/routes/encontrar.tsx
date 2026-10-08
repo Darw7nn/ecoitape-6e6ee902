@@ -33,7 +33,7 @@ export const Route = createFileRoute("/encontrar")({
     <PageShell>
       <div className="mx-auto max-w-xl px-4 py-24 text-center">
         <h1 className="text-2xl font-bold">Não conseguimos carregar os pontos</h1>
-        <p className="mt-2 text-muted-foreground">{error.message}</p>
+        <p className="mt-2 text-muted-foreground">{(error as Error).message}</p>
       </div>
     </PageShell>
   ),
@@ -70,7 +70,7 @@ function Find() {
   const base = showDemo ? allPoints.filter((p) => p.is_demo) : realPoints;
 
   const useMyLocation = () => {
-    if (!("geolocation" in navigator)) return setGeo("error");
+    if (!("geolocation" in navigator)) { setGeo("error"); return; }
     setGeo("loading");
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -88,7 +88,7 @@ function Find() {
     setGeo("loading");
     try {
       const r = await geocode(value.trim());
-      if (!r) return setGeo("notfound");
+      if (!r) { setGeo("notfound"); return; }
       setRef(r);
       setGeo("ok");
       setSortNear(true);
