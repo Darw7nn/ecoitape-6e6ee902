@@ -65,10 +65,6 @@ function Register() {
       </PageShell>
     );
 
-  const F = ({ name, label, ...rest }: { name: string; label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
-    <label className="block text-sm font-medium">{label}<input name={name} className={input} {...rest} /></label>
-  );
-
   return (
     <PageShell>
       <div className="mx-auto max-w-3xl px-4 py-12">
@@ -169,5 +165,11 @@ function Register() {
         </form>
       </div>
     </PageShell>
+  );
+}
+
+function F({ name, label, ...rest }: { name: string; label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <label className="block text-sm font-medium">{label}<input name={name} className="mt-1 h-11 w-full rounded-lg border border-input bg-background px-3" {...rest} /></label>
   );
 }
