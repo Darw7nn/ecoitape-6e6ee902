@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Droplets, Layers, MapPinned, PackageCheck, Search, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Droplets, Layers, MapPinned, PackageCheck, Search, ShieldCheck } from "lucide-react";
 import { PageShell } from "@/components/site/Layout";
 import { SearchBox } from "@/components/site/SearchBox";
 import { GroupIcon } from "@/components/site/MaterialIcon";
 import { materialsQuery } from "@/lib/queries";
+import recyclingPhoto from "@/assets/recycling-editorial.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,21 +26,19 @@ function Home() {
 
   return (
     <PageShell>
-      <section className="hero-pattern">
-        <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:pt-20">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-sm font-medium text-forest">
-            <span className="h-2 w-2 rounded-full bg-sun" /> Itapetininga–SP e região
-          </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.05] text-forest sm:text-6xl">
-            Vai descartar? Bora encontrar o lugar certo!
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            O Recicla, Uai! reúne empresas, cooperativas, ecopontos e pontos de coleta de Itapetininga e região. Escolha o material, diga onde você está e pronto.
-          </p>
-          <div className="mt-8">
-            <SearchBox />
+      <section className="home-cover">
+        <img src={recyclingPhoto} alt="Garrafas, papelão e latas separados para reciclagem" width={1600} height={912} className="home-cover-image" fetchPriority="high" />
+        <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
+          <div className="home-cover-copy py-5 pr-5 sm:pr-10">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary"><MapPinned className="h-4 w-4" /> Itapetininga–SP e região</p>
+            <h1 className="mt-5 text-5xl font-extrabold leading-tight text-forest sm:text-7xl">Recicla, Uai!</h1>
+            <p className="mt-3 text-2xl font-medium text-forest sm:text-3xl">Seu descarte tem destino.</p>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">Do papelão ao eletrônico, encontre o lugar certo para o que você vai descartar.</p>
           </div>
         </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-5 pt-7 sm:px-8">
+        <SearchBox />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16" aria-labelledby="cat">
@@ -50,7 +49,7 @@ function Home() {
           </div>
           <Link to="/materiais" className="font-semibold text-primary hover:underline">Ver orientações por material →</Link>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-3 lg:grid-cols-5">
           {groups.map((g) => {
             const ids = materials.filter((m) => m.group_name === g.group_name).map((m) => m.id);
             return (
@@ -58,12 +57,12 @@ function Home() {
                 key={g.group_name}
                 to="/encontrar"
                 search={{ m: ids }}
-                className="group flex flex-col items-start gap-3 rounded-2xl border bg-card p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-primary hover:shadow-lift"
+                className="material-tile group relative flex min-h-36 flex-col items-start gap-5 bg-card p-5 transition hover:bg-background"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                <span className="material-icon flex h-11 w-11 items-center justify-center rounded-md bg-secondary text-primary">
                   <GroupIcon group={g.group_name} className="h-6 w-6" />
                 </span>
-                <span className="font-semibold">{g.group_name}</span>
+                <span className="font-semibold">{g.group_name}</span><ArrowUpRight className="tile-arrow absolute right-4 top-5 h-4 w-4 text-muted-foreground" />
               </Link>
             );
           })}
@@ -79,7 +78,7 @@ function Home() {
               { i: MapPinned, t: "Encontre um local", d: "Veja no mapa os pontos mais próximos de você." },
               { i: PackageCheck, t: "Confira as condições", d: "Limpeza, embalagem, horários e se precisa agendar." },
             ].map((s, n) => (
-              <li key={s.t} className="rounded-2xl bg-background p-6">
+              <li key={s.t} className="border-t border-border py-6">
                 <div className="flex items-center gap-3">
                   <span className="font-display text-4xl font-extrabold text-sun">{n + 1}</span>
                   <s.i className="h-6 w-6 text-primary" aria-hidden />
@@ -92,8 +91,8 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16" aria-labelledby="dicas">
-        <div className="grid gap-8 rounded-3xl bg-forest p-8 text-forest-foreground md:grid-cols-[1fr_1.4fr] md:p-12">
+      <section className="bg-forest py-16 text-forest-foreground" aria-labelledby="dicas">
+        <div className="mx-auto grid max-w-6xl gap-8 px-5 md:grid-cols-[1fr_1.4fr] sm:px-8">
           <div>
             <h2 id="dicas" className="text-3xl font-extrabold">Separar é fácil, uai</h2>
             <p className="mt-3 opacity-85">Descarte certo, planeta feliz. Algumas dicas antes de sair de casa:</p>

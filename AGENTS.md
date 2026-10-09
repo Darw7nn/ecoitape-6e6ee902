@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
-- Maps use Leaflet + OpenStreetMap tiles, loaded lazily behind ClientOnly (LazyMap) — Leaflet touches window at import.
+- Maps use Google Maps JavaScript with the managed public browser key, async callback loading, and LazyMap behind ClientOnly — preserves SSR safety and interactive catalog markers.
 - Geocoding uses OpenStreetMap Nominatim, only on explicit user action — free, no key; respect its low-volume policy.
 - Public reads go through server functions with a publishable client (points.functions.ts); admin writes use the browser client under admin RLS.
 - Public submissions go through the `submit_point` DB function, always inserted as pending — anonymous users never write tables directly.

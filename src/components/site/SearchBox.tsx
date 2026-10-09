@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LocateFixed, MapPin, Search } from "lucide-react";
 import { useState } from "react";
 import { materialsQuery } from "@/lib/queries";
+import { Button } from "@/components/ui/button";
 
 export function SearchBox() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export function SearchBox() {
         e.preventDefault();
         go();
       }}
-      className="rounded-3xl bg-card p-4 shadow-lift sm:p-6"
+      className="border-y border-border bg-card py-6"
       aria-label="Buscar locais de reciclagem"
     >
       <div className="grid gap-3 md:grid-cols-[1fr_1.2fr]">
@@ -60,12 +61,12 @@ export function SearchBox() {
         </label>
       </div>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-        <button type="submit" className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 font-semibold text-primary-foreground shadow-soft transition hover:bg-forest">
+        <Button type="submit" className="h-12 flex-1 rounded-md px-6 font-semibold">
           <Search className="h-5 w-5" aria-hidden /> Encontrar onde reciclar
-        </button>
-        <button type="button" onClick={() => go(true)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-info px-5 font-semibold text-info transition hover:bg-info hover:text-info-foreground">
+        </Button>
+        <Button variant="outline" type="button" onClick={() => go(true)} className="h-12 rounded-md border-info px-5 font-semibold text-info hover:bg-info hover:text-info-foreground">
           <LocateFixed className="h-5 w-5" aria-hidden /> Usar minha localização
-        </button>
+        </Button>
       </div>
     </form>
   );

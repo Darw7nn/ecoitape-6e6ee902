@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Logo } from "./Logo";
+import { Button } from "@/components/ui/button";
 
 const NAV = [
   { to: "/", label: "Início" },
@@ -13,24 +14,24 @@ const NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const linkCls =
-    "rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-forest";
+    "border-b-2 border-transparent px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary";
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
         <Logo />
         <nav className="hidden items-center gap-1 md:flex" aria-label="Principal">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className={linkCls} activeProps={{ className: "bg-secondary text-forest" }} activeOptions={{ exact: true }}>
+            <Link key={n.to} to={n.to} className={linkCls} activeProps={{ className: "border-primary text-primary" }} activeOptions={{ exact: true }}>
               {n.label}
             </Link>
           ))}
-          <Link to="/cadastrar" className="ml-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-forest">
+          <Link to="/cadastrar" className="ml-3 rounded-md bg-forest px-4 py-2.5 text-sm font-semibold text-forest-foreground transition hover:bg-primary">
             Cadastrar um ponto
           </Link>
         </nav>
-        <button className="rounded-lg p-2 md:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open}>
+        <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open}>
           {open ? <X /> : <Menu />}
-        </button>
+        </Button>
       </div>
       {open && (
         <nav className="flex flex-col gap-1 border-t px-4 py-3 md:hidden" aria-label="Principal móvel">
@@ -67,7 +68,7 @@ export function SiteFooter() {
         </div>
         <div className="text-sm opacity-85">
           <p className="font-semibold">Antes de sair, confirme o recebimento!</p>
-          <p className="mt-2">As informações são enviadas pelos próprios locais e revisadas antes da publicação. Mapa © colaboradores do OpenStreetMap.</p>
+          <p className="mt-2">As informações são enviadas pelos próprios locais e revisadas antes da publicação.</p>
           <Link to="/admin" className="mt-3 inline-block underline opacity-70">Área administrativa</Link>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function SiteFooter() {
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="site-page flex min-h-screen flex-col">
       <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:p-2">
         Pular para o conteúdo
       </a>

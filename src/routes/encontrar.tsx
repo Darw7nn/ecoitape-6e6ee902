@@ -4,6 +4,7 @@ import { List, LocateFixed, Map as MapIcon, MapPin, Navigation, Search, X } from
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { PageShell } from "@/components/site/Layout";
+import { Button } from "@/components/ui/button";
 import { LazyMap } from "@/components/site/LazyMap";
 import { materialsQuery, pointsQuery } from "@/lib/queries";
 import {
@@ -140,13 +141,13 @@ function Find() {
         {showDemo && (
           <div role="status" className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border-2 border-dashed border-sun bg-sun/15 px-4 py-3 text-sm">
             <span><strong>Modo demonstração:</strong> os locais abaixo são fictícios e servem só para mostrar o funcionamento.</span>
-            <button className="font-semibold underline" onClick={() => setShowDemo(false)}>Voltar ao catálogo real</button>
+            <Button className="font-semibold underline" onClick={() => setShowDemo(false)}>Voltar ao catálogo real</Button>
           </div>
         )}
 
         {/* Location bar */}
         <form
-          className="mt-6 flex flex-col gap-2 rounded-2xl bg-card p-3 shadow-soft sm:flex-row"
+          className="mt-6 flex flex-col gap-2 border-y bg-card py-4 sm:flex-row"
           onSubmit={(e) => { e.preventDefault(); void searchAddress(); }}
         >
           <label className="relative flex-1">
@@ -154,12 +155,12 @@ function Find() {
             <MapPin className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden />
             <input value={address} onChange={(e) => setAddress(e.target.value)} maxLength={200} placeholder="Endereço com número, bairro ou CEP" className="h-11 w-full rounded-xl border border-input bg-background pl-10 pr-3" />
           </label>
-          <button type="submit" className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 font-semibold text-primary-foreground hover:bg-forest">
+          <Button type="submit" className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 font-semibold text-primary-foreground hover:bg-forest">
             <Search className="h-4 w-4" aria-hidden /> Buscar
-          </button>
-          <button type="button" onClick={useMyLocation} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border-2 border-info px-4 font-semibold text-info hover:bg-info hover:text-info-foreground">
+          </Button>
+          <Button type="button" onClick={useMyLocation} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border-2 border-info px-4 font-semibold text-info hover:bg-info hover:text-info-foreground">
             <LocateFixed className="h-4 w-4" aria-hidden /> Usar minha localização
-          </button>
+          </Button>
         </form>
         <div aria-live="polite" className="mt-2 min-h-5 text-sm">
           {geo === "loading" && <span className="text-muted-foreground">Localizando…</span>}
@@ -169,12 +170,12 @@ function Find() {
           {geo === "ok" && <span className="text-primary">Referência definida. Sua localização não é salva.</span>}
         </div>
 
-        <div className="mt-4 grid gap-6 lg:grid-cols-[300px_1fr]">
+        <div className="mt-4 grid gap-6 lg:grid-cols-[260px_1fr]">
           {/* Filters */}
           <aside className="space-y-5 rounded-2xl bg-card p-5 shadow-soft lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto" aria-label="Filtros">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">Filtros</h2>
-              <button onClick={clear} className="text-sm font-semibold text-primary hover:underline">Limpar filtros</button>
+              <Button onClick={clear} className="text-sm font-semibold text-primary hover:underline">Limpar filtros</Button>
             </div>
             <label className="block text-sm font-medium">Nome
               <input className={`${input} mt-1`} value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome da empresa ou ponto" />
@@ -183,9 +184,9 @@ function Find() {
               <legend className="text-sm font-medium">Materiais aceitos</legend>
               <div className="mt-2 flex gap-1 rounded-lg bg-muted p-1 text-xs">
                 {(["any", "all"] as const).map((m) => (
-                  <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`flex-1 rounded-md px-2 py-1.5 font-semibold ${mode === m ? "bg-card text-forest shadow-soft" : "text-muted-foreground"}`}>
+                  <Button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`flex-1 rounded-md px-2 py-1.5 font-semibold ${mode === m ? "bg-card text-forest shadow-soft" : "text-muted-foreground"}`}>
                     {m === "any" ? "Aceita qualquer selecionado" : "Aceita todos selecionados"}
-                  </button>
+                  </Button>
                 ))}
               </div>
               <div className="mt-3 space-y-3">
@@ -196,10 +197,10 @@ function Find() {
                       {materials.filter((m) => m.group_name === g).map((m) => {
                         const on = selected.includes(m.id);
                         return (
-                          <button key={m.id} type="button" aria-pressed={on} onClick={() => setSelected(toggle(selected, m.id))}
+                          <Button key={m.id} type="button" aria-pressed={on} onClick={() => setSelected(toggle(selected, m.id))}
                             className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${on ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:border-primary"}`}>
                             {m.name}
-                          </button>
+                          </Button>
                         );
                       })}
                     </div>
@@ -257,11 +258,11 @@ function Find() {
             <div className="mb-3 flex items-center justify-between">
               <p className="text-sm text-muted-foreground" aria-live="polite">{results.length} {results.length === 1 ? "local encontrado" : "locais encontrados"}</p>
               <div className="flex rounded-lg bg-muted p-1 lg:hidden">
-                <button onClick={() => setView("list")} aria-pressed={view === "list"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "list" ? "bg-card shadow-soft" : ""}`}><List className="h-4 w-4" />Lista</button>
-                <button onClick={() => setView("map")} aria-pressed={view === "map"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "map" ? "bg-card shadow-soft" : ""}`}><MapIcon className="h-4 w-4" />Mapa</button>
+                <Button onClick={() => setView("list")} aria-pressed={view === "list"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "list" ? "bg-card shadow-soft" : ""}`}><List className="h-4 w-4" />Lista</Button>
+                <Button onClick={() => setView("map")} aria-pressed={view === "map"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "map" ? "bg-card shadow-soft" : ""}`}><MapIcon className="h-4 w-4" />Mapa</Button>
               </div>
             </div>
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-4 xl:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)]">
               <div className={`${view === "map" ? "hidden" : ""} space-y-3 lg:block xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto xl:pr-1`}>
                 {!showDemo && realPoints.length === 0 ? (
                   <EmptyCatalog onDemo={() => setShowDemo(true)} />
@@ -269,7 +270,7 @@ function Find() {
                   <div className="rounded-2xl border-2 border-dashed bg-card p-8 text-center">
                     <p className="text-lg font-bold">Nenhum local com esses filtros</p>
                     <p className="mt-1 text-sm text-muted-foreground">Tente marcar "Aceita qualquer selecionado", remover algum material ou trocar o bairro.</p>
-                    <button onClick={clear} className="mt-4 inline-flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"><X className="h-4 w-4" />Limpar filtros</button>
+                    <Button onClick={clear} className="mt-4 inline-flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"><X className="h-4 w-4" />Limpar filtros</Button>
                   </div>
                 ) : (
                   results.map(({ p, d }) => <ResultCard key={p.id} p={p} d={d} active={active === p.id} onHover={() => setActive(p.id)} matName={matName} />)
@@ -289,7 +290,7 @@ function Find() {
 function ResultCard({ p, d, active, onHover, matName }: { p: Point; d: number | null; active: boolean; onHover: () => void; matName: Map<string, string> }) {
   const mats = acceptedIds(p);
   return (
-    <article onMouseEnter={onHover} onFocus={onHover} className={`rounded-2xl border bg-card p-5 shadow-soft transition ${active ? "border-info ring-2 ring-info/30" : ""}`}>
+    <article onMouseEnter={onHover} onFocus={onHover} className={`rounded-lg border bg-card p-5 transition ${active ? "border-info ring-2 ring-info/30" : ""}`}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <span className="text-xs font-semibold uppercase tracking-wide text-primary">{TYPE_LABEL[p.type]}</span>
@@ -328,13 +329,13 @@ function ResultCard({ p, d, active, onHover, matName }: { p: Point; d: number | 
 
 function EmptyCatalog({ onDemo }: { onDemo: () => void }) {
   return (
-    <div className="rounded-3xl bg-card p-8 text-center shadow-soft">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-primary"><MapPin className="h-7 w-7" /></div>
+    <div className="border-t border-border py-10 text-left">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-primary"><MapPin className="h-7 w-7" /></div>
       <h2 className="mt-4 text-xl font-bold">Nosso mapa ainda está crescendo</h2>
       <p className="mt-2 text-sm text-muted-foreground">Ainda não há locais verificados publicados. Conhece uma empresa, cooperativa ou ecoponto? Cadastre e ajude a cidade a reciclar mais.</p>
-      <div className="mt-5 flex flex-col justify-center gap-2 sm:flex-row">
+      <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <Link to="/cadastrar" className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">Cadastrar um ponto</Link>
-        <button onClick={onDemo} className="rounded-full border px-5 py-2.5 text-sm font-semibold">Ver demonstração</button>
+        <Button onClick={onDemo} className="rounded-full border px-5 py-2.5 text-sm font-semibold">Ver demonstração</Button>
       </div>
     </div>
   );
