@@ -140,7 +140,7 @@ function AdminPanel() {
 const FIELDS: [keyof Point, string][] = [
   ["name", "Nome"], ["description", "Descrição"], ["image_url", "URL da foto"], ["street", "Rua"], ["number", "Número"],
   ["neighborhood", "Bairro"], ["city", "Cidade"], ["cep", "CEP"], ["phone", "Telefone"], ["whatsapp", "WhatsApp"],
-  ["email", "E-mail"], ["website", "Site"], ["hours", "Horários"], ["cond_cleaning", "Limpeza"], ["cond_packaging", "Embalagem"],
+  ["cnpj", "CNPJ"], ["email", "E-mail"], ["website", "Site"], ["hours", "Horários"], ["cond_cleaning", "Limpeza"], ["cond_packaging", "Embalagem"],
   ["cond_min_quantity", "Qtd. mínima"], ["cond_costs", "Custos"], ["cond_scheduling", "Agendamento"], ["pricing_notes", "Obs. sobre valores"],
 ];
 

@@ -129,6 +129,7 @@ function PointPage() {
                 {p.hours && <li className="flex gap-3"><Clock className="h-5 w-5 shrink-0 text-primary" /><span className="whitespace-pre-line">{p.hours}</span></li>}
                 {p.phone && <li className="flex gap-3"><Phone className="h-5 w-5 shrink-0 text-primary" /><a href={`tel:${p.phone.replace(/\D/g, "")}`} className="hover:underline">{p.phone}</a></li>}
                 {wa && <li className="flex gap-3"><MessageCircle className="h-5 w-5 shrink-0 text-primary" /><a href={`https://wa.me/55${wa.replace(/^55/, "")}`} target="_blank" rel="noopener noreferrer" className="hover:underline">WhatsApp {p.whatsapp}</a></li>}
+                {p.cnpj && <li className="flex gap-3"><span className="w-5 shrink-0 text-xs font-bold text-primary">CNPJ</span><span>{p.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5")}</span></li>}
                 {p.email && <li className="flex gap-3"><Mail className="h-5 w-5 shrink-0 text-primary" /><a href={`mailto:${p.email}`} className="hover:underline">{p.email}</a></li>}
                 {p.website && <li className="flex gap-3"><Globe className="h-5 w-5 shrink-0 text-primary" /><a href={p.website.startsWith("http") ? p.website : `https://${p.website}`} target="_blank" rel="noopener noreferrer" className="break-all hover:underline">{p.website}</a></li>}
               </ul>
