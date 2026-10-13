@@ -73,6 +73,7 @@ export type Database = {
           accepts_dropoff: boolean
           cep: string | null
           city: string
+          cnpj: string | null
           cond_cleaning: string | null
           cond_costs: string | null
           cond_min_quantity: string | null
@@ -109,6 +110,7 @@ export type Database = {
           accepts_dropoff?: boolean
           cep?: string | null
           city?: string
+          cnpj?: string | null
           cond_cleaning?: string | null
           cond_costs?: string | null
           cond_min_quantity?: string | null
@@ -145,6 +147,7 @@ export type Database = {
           accepts_dropoff?: boolean
           cep?: string | null
           city?: string
+          cnpj?: string | null
           cond_cleaning?: string | null
           cond_costs?: string | null
           cond_min_quantity?: string | null
