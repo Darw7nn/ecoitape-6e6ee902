@@ -36,6 +36,7 @@ const schema = z.object({
   cep: z.string().trim().max(10).optional(),
   phone: z.string().trim().max(30).optional(),
   whatsapp: z.string().trim().max(30).optional(),
+  cnpj: z.string().trim().refine((v) => !v || v.replace(/\D/g, "").length === 14, "CNPJ deve ter 14 dígitos").optional(),
   email: z.string().trim().email("E-mail inválido").max(200).optional().or(z.literal("")),
   website: z.string().trim().max(300).optional(),
   hours: opt,
@@ -93,6 +94,7 @@ function Register() {
           <section className="space-y-4 rounded-2xl bg-card p-6 shadow-soft">
             <h2 className="text-xl font-bold">O local</h2>
             <F name="name" label="Nome *" required maxLength={150} />
+            <F name="cnpj" label="CNPJ da empresa (opcional)" inputMode="numeric" placeholder="00.000.000/0000-00" maxLength={18} />
             <label className="block text-sm font-medium">Tipo *
               <select name="type" className={input} defaultValue="ponto_coleta">
                 {(Object.keys(TYPE_LABEL) as PointType[]).map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}

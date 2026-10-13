@@ -24,6 +24,7 @@ export type Point = {
   whatsapp: string | null;
   website: string | null;
   email: string | null;
+  cnpj: string | null;
   hours: string | null;
   accepts_dropoff: boolean;
   offers_pickup: boolean;
