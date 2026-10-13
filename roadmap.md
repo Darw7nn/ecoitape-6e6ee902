@@ -1,4 +1,4 @@
 # Atualização visual
 - [x] Modernizar aparência e adicionar movimentos sutis.
 - [x] Substituir o mapa por Google Maps.
-- [ ] Verificar navegação e aparência; informar limite de validação do Google Maps.
+- [x] Verificar navegação, filtros e aparência; Google Maps precisa ser conferido pelo usuário no endereço autorizado publicado.
