@@ -6,6 +6,8 @@ import { GroupIcon } from "@/components/site/MaterialIcon";
 export const Route = createFileRoute("/materiais")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Materiais recicláveis: como separar e descartar — Recicla, Uai!" },
       { name: "description", content: "Orientações curtas para separar papel, plástico, vidro, metais, óleo, eletrônicos, pilhas e mais em Itapetininga–SP." },
       { property: "og:title", content: "Como separar cada material — Recicla, Uai!" },

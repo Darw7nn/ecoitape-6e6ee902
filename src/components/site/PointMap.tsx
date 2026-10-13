@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { useEffect, useRef, useState } from "react";
 import { MapPin, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -86,10 +87,11 @@ export default function PointMap({ points, materials, activeId, onSelect, userPo
       created.push(new google.maps.Marker({ map: current, position, title: "Sua referência", icon: markerIcon(info) }));
       bounds.extend(position);
     }
-    if (created.length > 1) { current.fitBounds(bounds, 48); const listener = google.maps.event.addListenerOnce(current, "idle", () => { if ((current.getZoom() ?? 13) > 15) current.setZoom(15); }); created[0]?.addListener("unused", () => google.maps.event.removeListener(listener)); }
+    let boundsListener: google.maps.MapsEventListener | undefined;
+    if (created.length > 1) { current.fitBounds(bounds, 48); boundsListener = google.maps.event.addListenerOnce(current, "idle", () => { if ((current.getZoom() ?? 13) > 15) current.setZoom(15); }); }
     else if (created.length === 1) { current.setCenter(bounds.getCenter()); current.setZoom(15); }
     else { current.setCenter({ lat: ITAPETININGA[0], lng: ITAPETININGA[1] }); current.setZoom(13); }
-    return () => { popup.current?.close(); created.forEach((m) => { google.maps.event.clearInstanceListeners(m); m.setMap(null); }); markers.current.clear(); };
+    return () => { if (boundsListener) google.maps.event.removeListener(boundsListener); popup.current?.close(); created.forEach((m) => { google.maps.event.clearInstanceListeners(m); m.setMap(null); }); markers.current.clear(); };
   }, [ready, points, materials, userPos]);
 
   useEffect(() => {

@@ -18,17 +18,20 @@ export const Route = createFileRoute("/pontos/$slug")({
       context.queryClient.ensureQueryData(materialsQuery),
     ]);
     if (!point) throw notFound();
-    return { name: point.name, type: TYPE_LABEL[point.type], city: point.city, description: point.description };
+    return { image: point.image_url, name: point.name, type: TYPE_LABEL[point.type], city: point.city, description: point.description };
   },
   head: ({ loaderData }) => {
     const title = loaderData ? `${loaderData.name} — ${loaderData.type} em ${loaderData.city} | Recicla, Uai!` : "Ponto de coleta | Recicla, Uai!";
     const desc = loaderData?.description?.slice(0, 155) ?? "Materiais aceitos, endereço, horários e contato deste ponto de reciclagem.";
     return {
       meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        ...(loaderData?.image?.startsWith("https://") ? [{ property: "og:image", content: loaderData.image }, { name: "twitter:image", content: loaderData.image }] : []),
       ],
     };
   },

@@ -22,6 +22,8 @@ export const Route = createFileRoute("/encontrar")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Encontrar pontos de reciclagem — Recicla, Uai!" },
       { name: "description", content: "Mapa e lista de empresas, cooperativas e ecopontos que recebem recicláveis em Itapetininga–SP e região." },
       { property: "og:title", content: "Encontrar pontos de reciclagem — Recicla, Uai!" },
@@ -141,7 +143,7 @@ function Find() {
         {showDemo && (
           <div role="status" className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border-2 border-dashed border-sun bg-sun/15 px-4 py-3 text-sm">
             <span><strong>Modo demonstração:</strong> os locais abaixo são fictícios e servem só para mostrar o funcionamento.</span>
-            <Button className="font-semibold underline" onClick={() => setShowDemo(false)}>Voltar ao catálogo real</Button>
+            <Button variant="ghost" className="font-semibold underline" onClick={() => setShowDemo(false)}>Voltar ao catálogo real</Button>
           </div>
         )}
 
@@ -158,7 +160,7 @@ function Find() {
           <Button type="submit" className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 font-semibold text-primary-foreground hover:bg-forest">
             <Search className="h-4 w-4" aria-hidden /> Buscar
           </Button>
-          <Button type="button" onClick={useMyLocation} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border-2 border-info px-4 font-semibold text-info hover:bg-info hover:text-info-foreground">
+          <Button variant="outline" type="button" onClick={useMyLocation} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border-2 border-info px-4 font-semibold text-info hover:bg-info hover:text-info-foreground">
             <LocateFixed className="h-4 w-4" aria-hidden /> Usar minha localização
           </Button>
         </form>
@@ -175,16 +177,16 @@ function Find() {
           <aside className="space-y-5 rounded-2xl bg-card p-5 shadow-soft lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto" aria-label="Filtros">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">Filtros</h2>
-              <Button onClick={clear} className="text-sm font-semibold text-primary hover:underline">Limpar filtros</Button>
+              <Button variant="link" onClick={clear} className="h-auto px-0 text-sm font-semibold text-primary hover:underline">Limpar filtros</Button>
             </div>
             <label className="block text-sm font-medium">Nome
               <input className={`${input} mt-1`} value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome da empresa ou ponto" />
             </label>
             <fieldset>
               <legend className="text-sm font-medium">Materiais aceitos</legend>
-              <div className="mt-2 flex gap-1 rounded-lg bg-muted p-1 text-xs">
+              <div className="mt-2 grid grid-cols-2 gap-1 rounded-lg bg-muted p-1 text-xs">
                 {(["any", "all"] as const).map((m) => (
-                  <Button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`flex-1 rounded-md px-2 py-1.5 font-semibold ${mode === m ? "bg-card text-forest shadow-soft" : "text-muted-foreground"}`}>
+                  <Button variant="ghost" key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`h-auto min-h-12 whitespace-normal rounded-md px-2 py-1.5 text-xs font-semibold ${mode === m ? "bg-card text-forest shadow-soft" : "text-muted-foreground"}`}>
                     {m === "any" ? "Aceita qualquer selecionado" : "Aceita todos selecionados"}
                   </Button>
                 ))}
@@ -197,8 +199,8 @@ function Find() {
                       {materials.filter((m) => m.group_name === g).map((m) => {
                         const on = selected.includes(m.id);
                         return (
-                          <Button key={m.id} type="button" aria-pressed={on} onClick={() => setSelected(toggle(selected, m.id))}
-                            className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${on ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:border-primary"}`}>
+                          <Button variant="outline" key={m.id} type="button" aria-pressed={on} onClick={() => setSelected(toggle(selected, m.id))}
+                            className={`h-auto min-h-7 whitespace-normal rounded-full border px-2.5 py-1 text-xs font-medium transition ${on ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:border-primary"}`}>
                             {m.name}
                           </Button>
                         );
@@ -258,8 +260,8 @@ function Find() {
             <div className="mb-3 flex items-center justify-between">
               <p className="text-sm text-muted-foreground" aria-live="polite">{results.length} {results.length === 1 ? "local encontrado" : "locais encontrados"}</p>
               <div className="flex rounded-lg bg-muted p-1 lg:hidden">
-                <Button onClick={() => setView("list")} aria-pressed={view === "list"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "list" ? "bg-card shadow-soft" : ""}`}><List className="h-4 w-4" />Lista</Button>
-                <Button onClick={() => setView("map")} aria-pressed={view === "map"} className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-semibold ${view === "map" ? "bg-card shadow-soft" : ""}`}><MapIcon className="h-4 w-4" />Mapa</Button>
+                <Button variant="ghost" onClick={() => setView("list")} aria-pressed={view === "list"} className={`inline-flex items-center gap-1 rounded-md text-foreground px-3 py-1.5 text-sm font-semibold ${view === "list" ? "bg-card shadow-soft" : ""}`}><List className="h-4 w-4" />Lista</Button>
+                <Button variant="ghost" onClick={() => setView("map")} aria-pressed={view === "map"} className={`inline-flex items-center gap-1 rounded-md text-foreground px-3 py-1.5 text-sm font-semibold ${view === "map" ? "bg-card shadow-soft" : ""}`}><MapIcon className="h-4 w-4" />Mapa</Button>
               </div>
             </div>
             <div className="grid gap-4 xl:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)]">
@@ -335,7 +337,7 @@ function EmptyCatalog({ onDemo }: { onDemo: () => void }) {
       <p className="mt-2 text-sm text-muted-foreground">Ainda não há locais verificados publicados. Conhece uma empresa, cooperativa ou ecoponto? Cadastre e ajude a cidade a reciclar mais.</p>
       <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <Link to="/cadastrar" className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">Cadastrar um ponto</Link>
-        <Button onClick={onDemo} className="rounded-full border px-5 py-2.5 text-sm font-semibold">Ver demonstração</Button>
+        <Button variant="outline" onClick={onDemo} className="rounded-full border px-5 py-2.5 text-sm font-semibold">Ver demonstração</Button>
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ import recyclingPhoto from "@/assets/recycling-editorial.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Recicla, Uai! — Onde reciclar em Itapetininga–SP" },
       { name: "description", content: "Escolha o material e encontre empresas, cooperativas, ecopontos e pontos de coleta em Itapetininga e região." },
       { property: "og:title", content: "Recicla, Uai! — Seu descarte tem destino" },
