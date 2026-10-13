@@ -9,6 +9,8 @@ import { TYPE_LABEL, geocode, fullAddress, type Material, type Point } from "@/l
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Painel administrativo — Recicla, Uai!" },
       { name: "description", content: "Revisão e gestão dos pontos de coleta." },
       { property: "og:title", content: "Painel — Recicla, Uai!" },

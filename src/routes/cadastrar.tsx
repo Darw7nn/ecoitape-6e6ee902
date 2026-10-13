@@ -12,6 +12,8 @@ import { TYPE_LABEL, type PointType } from "@/lib/points";
 export const Route = createFileRoute("/cadastrar")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Cadastrar um ponto de reciclagem — Recicla, Uai!" },
       { name: "description", content: "Cadastre gratuitamente sua empresa, cooperativa, ecoponto ou ponto de coleta em Itapetininga e região." },
       { property: "og:title", content: "Cadastre seu ponto — Recicla, Uai!" },
