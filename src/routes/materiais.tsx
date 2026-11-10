@@ -8,9 +8,9 @@ export const Route = createFileRoute("/materiais")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Materiais recicláveis: como separar e descartar — Recicla, Uai!" },
+      { title: "Materiais recicláveis: como separar e descartar — EcoItape" },
       { name: "description", content: "Orientações curtas para separar papel, plástico, vidro, metais, óleo, eletrônicos, pilhas e mais em Itapetininga–SP." },
-      { property: "og:title", content: "Como separar cada material — Recicla, Uai!" },
+      { property: "og:title", content: "Como separar cada material — EcoItape" },
       { property: "og:description", content: "Descarte certo, planeta feliz. Dicas por tipo de material." },
     ],
   }),

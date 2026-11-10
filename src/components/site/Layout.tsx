@@ -54,7 +54,7 @@ export function SiteFooter() {
     <footer className="mt-24 bg-forest text-forest-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
         <div>
-          <p className="font-display text-2xl font-extrabold">Recicla, Uai!</p>
+          <p className="font-display text-2xl font-extrabold">EcoItape</p>
           <p className="mt-2 text-sm opacity-80">Seu descarte tem destino. Coleta seletiva e reciclagem em Itapetininga–SP e região.</p>
         </div>
         <div className="text-sm">

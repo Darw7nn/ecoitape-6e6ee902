@@ -9,9 +9,9 @@ export const Route = createFileRoute("/auth")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Entrar — Recicla, Uai!" },
-      { name: "description", content: "Acesso da equipe administrativa do Recicla, Uai!" },
-      { property: "og:title", content: "Entrar — Recicla, Uai!" },
+      { title: "Entrar — EcoItape" },
+      { name: "description", content: "Acesso da equipe administrativa da EcoItape" },
+      { property: "og:title", content: "Entrar — EcoItape" },
       { property: "og:description", content: "Área administrativa." },
       { name: "robots", content: "noindex" },
     ],

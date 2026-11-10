@@ -14,9 +14,9 @@ export const Route = createFileRoute("/cadastrar")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Cadastrar um ponto de reciclagem — Recicla, Uai!" },
+      { title: "Cadastrar um ponto de reciclagem — EcoItape" },
       { name: "description", content: "Cadastre gratuitamente sua empresa, cooperativa, ecoponto ou ponto de coleta em Itapetininga e região." },
-      { property: "og:title", content: "Cadastre seu ponto — Recicla, Uai!" },
+      { property: "og:title", content: "Cadastre seu ponto — EcoItape" },
       { property: "og:description", content: "Ajude Itapetininga a reciclar mais. Cadastro gratuito e revisado." },
     ],
   }),
