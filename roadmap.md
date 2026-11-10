@@ -6,4 +6,4 @@
 # Identidade EcoItape
 - [x] Atualizar o nome nas páginas e nos títulos.
 - [x] Aplicar os logos enviados no topo e na apresentação principal, com ícone correspondente na guia.
-- [ ] Conferir os logos no computador e no celular.
+- [x] Conferir os logos no computador e no celular.
