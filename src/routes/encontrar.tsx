@@ -24,9 +24,9 @@ export const Route = createFileRoute("/encontrar")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Encontrar pontos de reciclagem — Recicla, Uai!" },
+      { title: "Encontrar pontos de reciclagem — EcoItape" },
       { name: "description", content: "Mapa e lista de empresas, cooperativas e ecopontos que recebem recicláveis em Itapetininga–SP e região." },
-      { property: "og:title", content: "Encontrar pontos de reciclagem — Recicla, Uai!" },
+      { property: "og:title", content: "Encontrar pontos de reciclagem — EcoItape" },
       { property: "og:description", content: "Filtre por material, bairro e tipo de local e veja o mais próximo de você." },
     ],
   }),

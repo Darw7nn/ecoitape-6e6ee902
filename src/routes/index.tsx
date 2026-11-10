@@ -5,6 +5,7 @@ import { PageShell } from "@/components/site/Layout";
 import { SearchBox } from "@/components/site/SearchBox";
 import { GroupIcon } from "@/components/site/MaterialIcon";
 import { materialsQuery } from "@/lib/queries";
+import ecoLogo from "@/assets/eco-itape-logo.png.asset.json";
 import recyclingPhoto from "@/assets/recycling-editorial.jpg";
 
 export const Route = createFileRoute("/")({
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Recicla, Uai! — Onde reciclar em Itapetininga–SP" },
+      { title: "EcoItape — Onde reciclar em Itapetininga–SP" },
       { name: "description", content: "Escolha o material e encontre empresas, cooperativas, ecopontos e pontos de coleta em Itapetininga e região." },
-      { property: "og:title", content: "Recicla, Uai! — Seu descarte tem destino" },
+      { property: "og:title", content: "EcoItape — Seu descarte tem destino" },
       { property: "og:description", content: "Encontre o lugar certo para reciclar em Itapetininga–SP e região." },
     ],
   }),
@@ -33,7 +34,7 @@ function Home() {
         <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
           <div className="home-cover-copy py-5 pr-5 sm:pr-10">
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary"><MapPinned className="h-4 w-4" /> Itapetininga–SP e região</p>
-            <h1 className="mt-5 text-5xl font-extrabold leading-tight text-forest sm:text-7xl">Recicla, Uai!</h1>
+            <h1 className="mt-5"><span className="sr-only">EcoItape</span><img src={ecoLogo.url} alt="EcoItape — Coleta seletiva & reciclagem" className="w-72 max-w-full sm:w-80" /></h1>
             <p className="mt-3 text-2xl font-medium text-forest sm:text-3xl">Seu descarte tem destino.</p>
             <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">Do papelão ao eletrônico, encontre o lugar certo para o que você vai descartar.</p>
           </div>

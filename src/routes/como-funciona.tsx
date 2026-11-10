@@ -6,9 +6,9 @@ export const Route = createFileRoute("/como-funciona")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Como funciona — Recicla, Uai!" },
-      { name: "description", content: "Entenda como o Recicla, Uai! ajuda você a encontrar onde reciclar e como os locais são cadastrados e revisados." },
-      { property: "og:title", content: "Como funciona o Recicla, Uai!" },
+      { title: "Como funciona — EcoItape" },
+      { name: "description", content: "Entenda como a EcoItape ajuda você a encontrar onde reciclar e como os locais são cadastrados e revisados." },
+      { property: "og:title", content: "Como funciona a EcoItape" },
       { property: "og:description", content: "Busca por material, mapa, distância e cadastro revisado de locais." },
     ],
   }),

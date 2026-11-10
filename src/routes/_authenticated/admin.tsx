@@ -11,9 +11,9 @@ export const Route = createFileRoute("/_authenticated/admin")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { title: "Painel administrativo — Recicla, Uai!" },
+      { title: "Painel administrativo — EcoItape" },
       { name: "description", content: "Revisão e gestão dos pontos de coleta." },
-      { property: "og:title", content: "Painel — Recicla, Uai!" },
+      { property: "og:title", content: "Painel — EcoItape" },
       { property: "og:description", content: "Área restrita." },
       { name: "robots", content: "noindex" },
     ],

@@ -15,3 +15,4 @@
 - Public reads go through server functions with a publishable client (points.functions.ts); admin writes use the browser client under admin RLS.
 - Public submissions go through the `submit_point` DB function, always inserted as pending — anonymous users never write tables directly.
 - Demo points are flagged `is_demo` and hidden from the real catalog unless the visitor opens demo mode.
+- Site logos use CDN asset pointers; the favicon is a locally downscaled copy of the same symbol — keeps branding consistent without shipping oversized tab icons.
